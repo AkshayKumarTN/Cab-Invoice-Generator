@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CabInvoiceGenerator
 {
-    class InvoiceGenerator
+    public class InvoiceGenerator
     {
         public double CalculateFare(double distance, int time)
         {
@@ -15,6 +15,16 @@ namespace CabInvoiceGenerator
             if (totalFare < minimumFare)
                 return minimumFare;
             return totalFare;
+        }
+
+        public InvoiceSummary CalculateFare(Ride[] rides)
+        {
+            double totalFare = 0;
+            foreach (Ride ride in rides)
+            {
+                totalFare += this.CalculateFare(ride.distance, ride.time);
+            }
+            return new InvoiceSummary(rides.Length, totalFare);
         }
     }
 }
