@@ -21,6 +21,15 @@ namespace CabInvoiceGenerator
             Console.WriteLine("\n Total fare for Multiple Rides : " + invoiceSummary.totalFare);
             Console.WriteLine(" Average Fare for Multiple Rides : " + invoiceSummary.averageFare);
 
+            string userId = "12345";
+            RideRepository rideRepository = new RideRepository();
+            rideRepository.AddRide(userId, rides);
+            Ride[] actual = rideRepository.GetRides(userId);
+
+            InvoiceSummary invoiceSummary1 = invoice.CalculateFare(rides);
+            Console.WriteLine("\n Total fare for Multiple Rides : " + invoiceSummary1.totalFare);
+            Console.WriteLine(" Average Fare for Multiple Rides : " + invoiceSummary1.averageFare);
+
 
         }
     }

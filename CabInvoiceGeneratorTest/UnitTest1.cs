@@ -99,5 +99,27 @@ namespace CabInvoiceGeneratorTest
             double actual = summary.averageFare;
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void UserIdInvoiceServiceReturnsListOfRides()
+        {
+            Ride[] rides =
+            {
+                new Ride(1.0, 1),
+                new Ride(2.0, 2),
+                new Ride(3.0, 2),
+                new Ride(4.0, 4),
+                new Ride(5.0, 3)
+            };
+            string userId = "12345";
+            RideRepository rideRepository = new RideRepository();
+            rideRepository.AddRide(userId, rides);
+            Ride[] actualRides = rideRepository.GetRides(userId);
+            InvoiceGenerator invoiceGenerator = new InvoiceGenerator();
+            InvoiceSummary summary = invoiceGenerator.CalculateFare(actualRides);
+            double expected = 32.4;
+            double actual = summary.averageFare;
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
